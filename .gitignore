@@ -1,0 +1,21 @@
+# Node.js
+**/node_modules/
+**/dist/
+frontend-backup/
+.eslintcache
+
+# .NET / C#
+**/bin/
+**/obj/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Database & SQLite files
+backend/drdo_hr.db
+backend/drdo_hr.db-shm
+backend/drdo_hr.db-wal
+
+# OS files
+.DS_Store
+Thumbs.db

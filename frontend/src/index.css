@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --color-bg-page: #fafafa;
+  --color-bg-surface: #ffffff;
+  --color-bg-subtle: #f4f4f5;
+  
+  --color-text-primary: #18181b;
+  --color-text-secondary: #71717a;
+  --color-text-muted: #a1a1aa;
+  
+  --color-border-hairline: rgba(24, 24, 27, 0.08);
+  --color-border-strong: rgba(24, 24, 27, 0.16);
+  
+  /* Semantic Muted Tones */
+  --color-status-green-txt: #166534;
+  --color-status-green-bg: #f0fdf4;
+  --color-status-amber-txt: #9a3412;
+  --color-status-amber-bg: #fffbeb;
+  --color-status-red-txt: #991b1b;
+  --color-status-red-bg: #fef2f2;
+}
+
+:root {
+  --bg-page: #fafafa;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f4f4f5;
+  --border: rgba(24, 24, 27, 0.08);
+  --border-strong: rgba(24, 24, 27, 0.16);
+  --text-primary: #18181b;
+  --text-secondary: #71717a;
+  --text-muted: #a1a1aa;
+  --radius: 6px;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Tabular numbers for clean aligned data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Premium Focus Ring (2px offset, 2px border) */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: none;
+  border-color: var(--text-primary) !important;
+  box-shadow: 0 0 0 2px var(--bg-page), 0 0 0 4px var(--text-primary) !important;
+}
+
+/* Custom transitions and scrollbars */
+::selection {
+  background-color: rgba(24, 24, 27, 0.08);
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(24, 24, 27, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(24, 24, 27, 0.2);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
