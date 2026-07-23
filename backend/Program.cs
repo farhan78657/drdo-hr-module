@@ -12,20 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Database setup — Fallback to SQLite locally, use PostgreSQL in production
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-    ?? builder.Configuration["ConnectionStrings:DefaultConnection"];
-
-if (!string.IsNullOrEmpty(connectionString))
-{
-    builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseNpgsql(connectionString));
-}
-else
-{
-    builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlite("Data Source=drdo_hr.db"));
-}
+// SQLite Database
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite("Data Source=drdo_hr.db"));
 
 // JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"]

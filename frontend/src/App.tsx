@@ -42,7 +42,7 @@ const ProtectedRoute = ({ children, allowedRole }: { children: React.ReactNode; 
 
 function App() {
   return (
-    <Router basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+    <Router>
       <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />

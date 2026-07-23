@@ -1,81 +1,34 @@
-# DRDO SSPL — HR & Training Management System
-
-A full-stack, security-hardened internal portal for managing personnel training at DRDO's Solid State Physics Laboratory.
-
----
+# DRDO SSPL — Trainee Management Portal
 
 ## Prerequisites
+- **Node.js** v18+ → https://nodejs.org
+- **.NET SDK** v10.0+ → https://dotnet.microsoft.com/download
 
-Make sure you have these installed before starting:
+## How to Run
 
-| Tool | Version | Download |
-|------|---------|----------|
-| Node.js | v18 or later | https://nodejs.org |
-| .NET SDK | v10.0 or later | https://dotnet.microsoft.com/download |
-
----
-
-## Launch in 3 steps
-
-### Step 1 — Backend (API server)
-
-Open a terminal, navigate to the `backend` directory, and run:
-
+**Terminal 1 — Start Backend:**
 ```bash
 cd backend
 dotnet run --urls "http://localhost:5000"
 ```
 
-Wait until you see:
-```
-Now listening on: http://localhost:5000
-```
-
-> **Security Note:** The database (`drdo_hr.db`) is created automatically on first run and seeded with role-based mock accounts using secure **BCrypt password hashing** (work factor 12).
-
----
-
-### Step 2 — Frontend (Web app)
-
-Open a **second terminal**, navigate to the `frontend` directory, and run:
-
+**Terminal 2 — Start Frontend:**
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Wait until you see:
-```
-Local: http://localhost:5173/
-```
-
----
-
-### Step 3 — Open in browser
-
-Go to: **http://localhost:5173**
-
----
+Open **http://localhost:5173** in your browser.
 
 ## Login Credentials
 
 | Role | Email | Password |
 |------|-------|----------|
 | HR Admin | `admin@sspl.drdo.in` | `Admin@123` |
-| Scientist Mentor | `dr.gupta@sspl.drdo.in` | `Mentor@123` |
+| Mentor | `dr.gupta@sspl.drdo.in` | `Mentor@123` |
 
----
-
-## Tech Stack & Hardened Features
-
-- **Frontend:** React.js, TypeScript, Vite, Tailwind CSS, Lucide Icons, Axios.
-  - Strict UI standard (Navy layout, 1px hairline borders, high-density dashboard layouts, tabular figures).
-  - Clean memoization with zero React Compiler/ESLint warnings or errors.
-- **Backend:** ASP.NET Core Web API (C#), Entity Framework Core, SQLite.
-  - BCrypt.Net password hashing for secure authentication.
-  - Class-level and route-level Role-Based Access Control (RBAC).
-  - Multi-layered protection against Indirect Object Reference (IDOR) data leaks.
-  - Security headers middleware (CSP, X-Frame-Options, X-Content-Type-Options).
-  - Auth rate limiting protection (10 req/min).
-  - Strict request size limits.
+## Tech Stack
+- **Frontend:** React.js, TypeScript, Tailwind CSS
+- **Backend:** ASP.NET Core (C#), Entity Framework Core
+- **Database:** SQLite (auto-created on first run)
