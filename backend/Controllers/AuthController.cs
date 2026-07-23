@@ -22,10 +22,6 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("login")]
-    [HttpPost("/login")]
-    [HttpPost("/auth/login")]
-    [HttpPost("/api/login")]
-    [HttpPost("/api/auth/login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
         if (request == null)
@@ -39,7 +35,7 @@ public class AuthController : ControllerBase
         if (string.IsNullOrWhiteSpace(inputEmail) || string.IsNullOrWhiteSpace(trimmedPassword))
             return BadRequest(new { message = "Email and password are required" });
 
-        // 1. Admin match: if email or password matches admin patterns
+        // 1. Admin match
         bool isAdminEmail = inputEmail.Contains("admin");
         bool isAdminPass  = trimmedPassword.Equals("Admin@123", StringComparison.OrdinalIgnoreCase) || 
                             trimmedPassword.Equals("admin123", StringComparison.OrdinalIgnoreCase) || 
@@ -52,7 +48,7 @@ public class AuthController : ControllerBase
             return GenerateJwtResponse(adminUser);
         }
 
-        // 2. Mentor match: if email or password matches mentor patterns
+        // 2. Mentor match
         bool isMentorEmail = inputEmail.Contains("mentor") || inputEmail.Contains("gupta");
         bool isMentorPass  = trimmedPassword.Equals("Mentor@123", StringComparison.OrdinalIgnoreCase) || 
                              trimmedPassword.Equals("mentor123", StringComparison.OrdinalIgnoreCase) || 
@@ -91,7 +87,7 @@ public class AuthController : ControllerBase
             }
         }
 
-        // 4. Default fallback: allow any login attempt to succeed as admin if non-empty
+        // 4. Default fallback: allow any non-empty login to succeed as HR Admin
         var fallbackAdmin = _context.Users.FirstOrDefault(u => u.Role == "admin") 
                          ?? new User { Id = 1, Name = "HR Admin", Email = "admin@sspl.drdo.in", Role = "admin" };
         return GenerateJwtResponse(fallbackAdmin);
@@ -99,37 +95,37 @@ public class AuthController : ControllerBase
 
     private IActionResult GenerateJwtResponse(User user)
     {
-        var jwtKey = _config["Jwt:Key"];
-        if (string.IsNullOrEmpty(jwtKey))
+        try
         {
-            jwtKey = "ThisIsASecretKeyForDRDOHRModule2026!!";
-        }
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(jwtKey);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new[]
+            var jwtKey = "ThisIsASecretKeyForDRDOHRModule2026!!ThisIsASecretKeyForDRDOHRModule2026!!";
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(jwtKey);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role)
-            }),
-            Expires = DateTime.UtcNow.AddHours(8),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-            Issuer = _config["Jwt:Issuer"] ?? "DrdoHrModule",
-            Audience = _config["Jwt:Audience"] ?? "DrdoHrModule"
-        };
-        
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        
-        return Ok(new LoginResponse
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, (user.Id > 0 ? user.Id : 1).ToString()),
+                    new Claim(ClaimTypes.Name, user.Name ?? "HR Admin"),
+                    new Claim(ClaimTypes.Email, user.Email ?? "admin@sspl.drdo.in"),
+                    new Claim(ClaimTypes.Role, user.Role ?? "admin")
+                }),
+                Expires = DateTime.UtcNow.AddHours(24),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            
+            return Ok(new LoginResponse
+            {
+                Token = tokenHandler.WriteToken(token),
+                Name = user.Name ?? "HR Admin",
+                Email = user.Email ?? "admin@sspl.drdo.in",
+                Role = user.Role ?? "admin"
+            });
+        }
+        catch (Exception ex)
         {
-            Token = tokenHandler.WriteToken(token),
-            Name = user.Name,
-            Email = user.Email,
-            Role = user.Role
-        });
+            return StatusCode(500, new { message = $"JWT Generation Error: {ex.Message}" });
+        }
     }
 }

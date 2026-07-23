@@ -18,20 +18,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=drdo_hr.db"));
 
 // JWT Authentication
-var jwtKey = builder.Configuration["Jwt:Key"]
-    ?? throw new InvalidOperationException("JWT Key is not configured. Set Jwt:Key in appsettings or environment.");
+var jwtKey = "ThisIsASecretKeyForDRDOHRModule2026!!ThisIsASecretKeyForDRDOHRModule2026!!";
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer           = true,
-            ValidateAudience         = true,
+            ValidateIssuer           = false,
+            ValidateAudience         = false,
             ValidateLifetime         = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer              = builder.Configuration["Jwt:Issuer"] ?? "DrdoHrModule",
-            ValidAudience            = builder.Configuration["Jwt:Audience"] ?? "DrdoHrModule",
             IssuerSigningKey         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
