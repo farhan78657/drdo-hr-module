@@ -1,7 +1,7 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage{times}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -12,472 +12,321 @@
 \usepackage{multirow}
 \usepackage{amsmath,amssymb}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows, positioning, shadows, fit, backgrounds}
+\usetikzlibrary{shapes.geometric, arrows, positioning, shadows}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{caption}
-\usepackage{subcaption}
 \usepackage{setspace}
 \usepackage{enumitem}
 
-% Line spacing
 \onehalfspacing
-
-% Color Definitions
-\definecolor{drdoblue}{RGB}{10, 45, 95}
-\definecolor{drdogold}{RGB}{200, 150, 40}
-\definecolor{darkgray}{RGB}{50, 50, 50}
-\definecolor{lightgray}{RGB}{245, 245, 245}
-\definecolor{codebg}{RGB}{248, 249, 250}
-\definecolor{codecomment}{RGB}{108, 117, 125}
-\definecolor{codekeyword}{RGB}{13, 110, 253}
-\definecolor{codestring}{RGB}{25, 135, 84}
 
 % Hyperref Setup
 \hypersetup{
     colorlinks=true,
-    linkcolor=drdoblue,
-    citecolor=drdoblue,
-    urlcolor=drdoblue,
-    pdftitle={DRDO SSPL Internship Report - Trainee & Internship Management Portal (TIMP)},
-    pdfauthor={Internship Trainee},
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=blue,
+    pdftitle={DRDO SSPL Internship Report - Trainee & Internship Management Portal},
+    pdfauthor={Tarleen Kaur / Trainee},
     pdfsubject={Software Engineering & Web Application Development}
 }
 
 % Header & Footer Setup
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\textcolor{drdoblue}{\textbf{Solid State Physics Laboratory (SSPL) -- DRDO}}}
-\fancyhead[R]{\small\textcolor{drdoblue}{Trainee Management Portal Report}}
+\fancyhead[L]{\small Solid State Physics Laboratory (SSPL) -- DRDO}
+\fancyhead[R]{\small Trainee Management Portal Report}
 \fancyfoot[C]{\thepage}
-\renewcommand{\headrulewidth}{0.6pt}
-\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% Section Title Formats
-\titleformat{\chapter}[display]
-  {\normalfont\huge\bfseries\color{drdoblue}}{\chaptertitlename\ \thechapter}{15pt}{\Huge}
-\titleformat{\section}
-  {\normalfont\Large\bfseries\color{drdoblue}}{\thesection}{1em}{}
-\titleformat{\subsection}
-  {\normalfont\large\bfseries\color{darkgray}}{\thesubsection}{1em}{}
-
-% Listings Code Formatting Setup
-\lstset{
-    backgroundcolor=\color{codebg},
-    commentstyle=\color{codecomment}\itshape,
-    keywordstyle=\color{codekeyword}\bfseries,
-    numberstyle=\tiny\color{codecomment},
-    stringstyle=\color{codestring},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=8pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2,
-    frame=single,
-    rulecolor=\color{lightgray}
-}
+% Custom section formatting to match DRDO reference report
+\titleformat{\section}[block]{\centering\normalfont\Large\bfseries\uppercase}{}{0pt}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\normalfont\bfseries}{\thesubsubsection}{1em}{}
 
 \begin{document}
 
 % ==========================================
-% TITLE PAGE
+% PAGE 1: COVER / TITLE PAGE
 % ==========================================
 \begin{titlepage}
     \centering
     \vspace*{0.5cm}
     
-    {\Huge \textbf{\textcolor{drdoblue}{INTERNSHIP PROJECT REPORT}}}\\[0.4cm]
-    {\large \textbf{Academic Year 2025--2026}}\\[1.2cm]
+    {\Large \textbf{INTERNSHIP PROJECT REPORT}}\\[0.3cm]
+    {\large Academic Year 2025-2026}\\[1.2cm]
     
-    \rule{\linewidth}{1.5pt}\\[0.4cm]
-    {\Large \textbf{\textcolor{drdoblue}{DESIGN AND DEVELOPMENT OF AN ENTERPRISE TRAINEE \& INTERNSHIP MANAGEMENT PORTAL (TIMP)}}}\\[0.2cm]
-    \rule{\linewidth}{1.5pt}\\[1.2cm]
+    {\large \textbf{TITLE}}\\[0.3cm]
+    {\Large \textbf{Trainee \& Internship Management Portal (TIMP)}}\\[0.8cm]
     
-    \textbf{\Large Solid State Physics Laboratory (SSPL)}\\[0.2cm]
+    % DRDO Official Emblem
+    \includegraphics[width=3.8cm]{drdo_logo.png}\\[0.8cm]
+    
+    {\large \textbf{Solid State Physics Laboratory (SSPL)}}\\[0.2cm]
     {\large \textbf{Defence Research and Development Organisation (DRDO)}}\\[0.2cm]
-    {\large Ministry of Defence (MOD), Government of India}\\[0.2cm]
-    {\small Lucknow Road, Timarpur, Delhi -- 110054}\\[1.8cm]
+    {\large \textbf{Ministry of Defence (MOD), Government of India}}\\[0.2cm]
+    {\normalsize Lucknow Road, Timarpur, Delhi - 110054}\\[1.8cm]
     
-    \begin{minipage}{0.48\textwidth}
-        \begin{flushleft} \large
-            \textbf{\textcolor{drdoblue}{SUBMITTED BY:}}\\[0.2cm]
-            Internship Trainee\\
-            Software Engineering Division\\
-            SSPL -- DRDO, Delhi
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushleft}
+            \textbf{SUBMITTED BY:}\\[0.2cm]
+            Internship Trainee\\[0.1cm]
+            B.Tech, ECE / CSE\\[0.1cm]
+            (Engineering College)
         \end{flushleft}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
-        \begin{flushright} \large
-            \textbf{\textcolor{drdoblue}{PROJECT GUIDE:}}\\[0.2cm]
-            Scientist / HR Division\\
-            Solid State Physics Laboratory\\
+        \begin{flushright}
+            \textbf{PROJECT GUIDE:}\\[0.2cm]
+            Scientist / HR Division\\[0.1cm]
+            Solid State Physics Laboratory (SSPL)\\[0.1cm]
             DRDO, Timarpur, Delhi
         \end{flushright}
     \end{minipage}
     
     \vfill
-    {\small July 2026}
 \end{titlepage}
 
 % ==========================================
-% CERTIFICATE & DECLARATION
+% PAGE 2: ACKNOWLEDGEMENT
 % ==========================================
 \newpage
-\pagenumbering{roman}
+\pagenumbering{arabic}
 \setcounter{page}{2}
 
-\chapter*{CERTIFICATE OF ORIGINALITY}
-\addcontentsline{toc}{chapter}{Certificate of Originality}
+\section*{ACKNOWLEDGEMENT}
+\addcontentsline{toc}{section}{ACKNOWLEDGEMENT}
+\vspace{0.8cm}
 
-This is to certify that the project report titled \textbf{“Design and Development of an Enterprise Trainee \& Internship Management Portal (TIMP)”} submitted by the Internship Trainee in partial fulfillment of the requirements for the completion of the research internship at \textbf{Solid State Physics Laboratory (SSPL), Defence Research and Development Organisation (DRDO), Delhi}, is an authentic record of work carried out under scientific supervision.
+First and foremost, I would like to express my sincere gratitude to the Training and Placement Division for giving me the opportunity to undertake my internship at **Solid State Physics Laboratory (SSPL) -- DRDO**. I am deeply grateful to the Director and Senior Scientists at SSPL for considering me for the internship in this esteemed organization.
 
-The work embodied in this project report has been completed with institutional rigor, adhering to software design methodologies, data security protocols, and standard laboratory procedures. The codebase and technical documentation presented herein have been authored independently and have not been submitted elsewhere for any academic degree or diploma.
+I perceive this opportunity as a big milestone in the development of my career and will strive to use the gained knowledge and exposure in the best possible way. I am thankful to SSPL for providing an exposure to learn and grow on a cutting-edge technological platform.
+
+I would like to express my deepest appreciation to my Project Guide and Scientist Mentors of the HR \& Systems Division for their continuous guidance, teachings, and constructive reviews during the internship.
+
+I am also thankful to all the members and scientific staff of Solid State Physics Laboratory (SSPL), DRDO, Timarpur, Delhi - 110054 for helping me during the project. I would also like to thank my parents and almighty God for this opportunity.
 
 \vspace{3.5cm}
 
 \noindent
-\begin{minipage}{0.45\textwidth}
-    \textbf{Project Guide / Scientist}\\
-    HR \& Software Division\\
-    SSPL -- DRDO, Delhi
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-    \textbf{Head of HR Division / Director}\\
-    Solid State Physics Laboratory\\
-    DRDO, Timarpur, Delhi
-\end{minipage}
-
-\newpage
-\chapter*{ACKNOWLEDGEMENT}
-\addcontentsline{toc}{chapter}{Acknowledgement}
-
-First and foremost, I express my deepest gratitude and reverence to the \textbf{Solid State Physics Laboratory (SSPL)}, a premier laboratory under the \textbf{Defence Research and Development Organisation (DRDO), Ministry of Defence, Government of India}, for granting me the invaluable opportunity to execute my engineering internship at this esteemed institution.
-
-I extend my heartfelt gratitude to the Director, Senior Scientists, and scientific officers of SSPL -- DRDO for providing access to sophisticated technological infrastructure and an institutional environment that fosters advanced technological innovation and scientific learning.
-
-I express my deepest appreciation and sincere thanks to my Project Guide and the Scientists of the HR and Systems Division at SSPL -- DRDO, for their constant encouragement, technical guidance, constructive reviews, and continuous mentorship throughout the conceptualization, system architecture design, implementation, testing, and cloud deployment phases of this project.
-
-I am also thankful to all team members, laboratory scientists, and technical officers at SSPL DRDO, Timarpur, Delhi for their assistance and cooperation during the project lifecycle. Finally, I thank my parents and family for their unwavering support and encouragement.
-
-\vspace{1.5cm}
-\begin{flushright}
-    \textbf{Internship Trainee}\\
-    Solid State Physics Laboratory (SSPL)\\
-    Defence Research and Development Organisation (DRDO)\\
-    Timarpur, Delhi -- 110054
-\end{flushright}
+Date: 31st July, 2026\\[0.1cm]
+Place: Delhi\\[0.3cm]
+Name: Internship Trainee\\[0.1cm]
+Mobile No.: +91 9876543210\\[0.1cm]
+Email: trainee@drdo.in
 
 % ==========================================
-% ABSTRACT
+% PAGE 3: INDEX / TABLE OF CONTENTS TABLE
 % ==========================================
 \newpage
-\chapter*{ABSTRACT}
-\addcontentsline{toc}{chapter}{Abstract}
-
-The **Trainee \& Internship Management Portal (TIMP)** is a custom-engineered enterprise web application designed to digitize, streamline, and secure the complete lifecycle of academic interns, research trainees, and student fellows at the **Solid State Physics Laboratory (SSPL - DRDO)**. Modern defense research facilities manage hundreds of student trainees annually across multi-disciplinary scientific divisions (e.g., Solid State Devices, Optoelectronics, Quantum Materials, Silicon Devices). Traditional paper-based registration, manual scientist allocation, physical gate pass processing, and paper certificate issuance create operational bottlenecks, tracking gaps, and administrative overhead.
-
-To resolve these challenges, TIMP was developed using a decoupled architecture leveraging an **ASP.NET Core Web API** backend connected to an **Entity Framework Core ORM** layer and a responsive **React (Vite) TypeScript** frontend styled according to modern Minimalist Linear/Stripe design standards. The system provides role-based authentication (HR Admin and Scientist Mentors) secured via **JSON Web Tokens (JWT)** and **BCrypt (Work Factor 12)** password hashing.
-
-Key functional capabilities include:
-\begin{enumerate}[label=\roman*.]
-    \item **Automated Trainee Lifecycle Management:** Streamlined registration, personal/academic record processing, CSV batch ingestion, and status tracking (`New`, `Assigned`, `Active`, `Completed`, `Rejected`).
-    \item **Scientist-Mentor Allocation Unit:** Seamless matching and assignment of interns to SSPL research scientists based on department specialization.
-    \item **Attendance Tracking \& Visual Analytics:** Daily attendance logging paired with an interactive GitHub-style contribution heatmap for individual trainee tracking over time.
-    \item **Gate Pass Authorization Management:** Digital entry/exit pass request, review, and approval workflow for facility access control.
-    \item **Standardized Certificate Generation:** Automated generation of formal DRDO completion certificates with precise print-layout canvas rendering, embedded laboratory seals, and scaling controls.
-    \item **Containerized Cloud Deployment:** Multi-stage Dockerization for backend microservices deployed on cloud infrastructure (Render) with automated CORS configurations, SPA routing rules, and resilient database seeding.
-\end{enumerate}
-
-Empirical testing confirms significant reductions in administrative processing latency, enhanced audit compliance, and robust data integrity across laboratory operations.
-
-% ==========================================
-% TABLE OF CONTENTS & LISTS
-% ==========================================
-\newpage
-\tableofcontents
-\listoffigures
-\listoftables
-\lstlistoflistings
-
-% ==========================================
-% MAIN CONTENT - CHAPTERS
-% ==========================================
-\newpage
-\pagenumbering{arabic}
-\setcounter{page}{1}
-
-\chapter{INTRODUCTION \& ORGANIZATIONAL OVERVIEW}
-
-\section{Organization Overview: SSPL -- DRDO}
-The **Solid State Physics Laboratory (SSPL)** was established in 1962 under the **Defence Research and Development Organisation (DRDO)**, Ministry of Defence, Government of India. Located in Timarpur, Delhi, SSPL serves as the primary national center for research, design, and indigenous development of advanced solid-state materials, semiconductor devices, sensors, and electronic sub-systems for strategic defense applications.
-
-Over six decades, SSPL has pioneered groundbreaking developments in:
-\begin{itemize}
-    \item **Micro-Electro-Mechanical Systems (MEMS):** Micro-sensors, actuators, and acoustic wave resonators for tactical applications.
-    \item **Monolithic Microwave Integrated Circuits (MMICs):** High-frequency Gallium Nitride (GaN) and Gallium Arsenide (GaAs) power amplifiers for radar and electronic warfare systems.
-    \item **Optoelectronic \& Infrared Devices:** Quantum-well infrared photodetectors (QWIP) and semiconductor laser diodes for defense optics.
-    \item **Advanced Semiconductor Materials:** Epitaxial growth of silicon, III-V compound semiconductors, and quantum materials.
-\end{itemize}
-
-Interns and student researchers at SSPL work under the direct mentorship of senior scientists, gaining exposure to state-of-the-art technological infrastructures while contributing to national self-reliance in defense electronics.
-
-\section{Project Background \& Problem Statement}
-Managing the high throughput of technical trainees, undergraduate interns, and postgraduate research fellows across various SSPL laboratory divisions presents complex logistical and administrative challenges:
-\begin{enumerate}
-    \item **Paper-Based Onboarding:** Manual entry of candidate biodata, educational qualification certificates, and Aadhar credentials leads to operational delays.
-    \item **Manual Mentor Mapping:** Difficulty in maintaining an up-to-date registry of available laboratory scientists and tracking intern assignments per department.
-    \item **Fragmented Attendance Tracking:** Lack of a centralized digital attendance repository, making it tedious to compute minimum required attendance for completion eligibility.
-    \item **Gate Pass Bottlenecks:** Manual generation and approval of daily/short gate passes for laboratory entrance.
-    \item **Certificate Production Inconsistencies:** Inconsistent formatting and manual verification required during the generation of official DRDO internship certificates.
-\end{enumerate}
-
-To modernize these procedures, SSPL initiated the **Trainee \& Internship Management Portal (TIMP)** project to deliver a centralized, secure, web-based digital platform.
-
-\section{Objectives and Scope}
-The primary objective of TIMP is to provide an end-to-end digital governance system for internship operations at SSPL -- DRDO. Specific goals include:
-\begin{itemize}
-    \item **Architectural Decoupling:** Build a scalable, high-performance REST API backend using ASP.NET Core and a lightweight React frontend.
-    \item **Role-Based Access Control (RBAC):** Provide distinct role-based interfaces for HR Administrators and Scientist Mentors.
-    \item **Batch Data Operations:** Support CSV template downloading and bulk candidate/scientist importing.
-    \item **Security Hardening:** Implement industry-standard authentication (JWT, BCrypt), security response headers, global rate-limiting, and input sanitization.
-    \item **Automated Document Generation:** Build print-ready, scale-to-fit certificate generation views featuring official laboratory seals and signatures.
-    \item **Production Cloud Deployment:** Containerize the backend with Docker and configure seamless deployment on cloud infrastructure.
-\end{itemize}
-
-\chapter{SYSTEM REQUIREMENTS \& ARCHITECTURAL DESIGN}
-
-\section{Functional and Non-Functional Requirements}
-
-\subsection{Functional Requirements}
-\begin{itemize}
-    \item **FR-1: Authentication \& Authorization:** Secure multi-role sign-in (`admin`, `mentor`) with JWT bearer tokens.
-    \item **FR-2: Intern Lifecycle Management:** Full CRUD operations for trainee records with lifecycle status transitions.
-    \item **FR-3: Mentor Allocation:** Dynamic mapping of trainees to SSPL scientists by department.
-    \item **FR-4: Attendance Tracking:** Daily roll-call logging and interactive GitHub-style contribution heatmap visualizer.
-    \item **FR-5: Pass Request Management:** Digital request and approval system for laboratory gate passes.
-    \item **FR-6: Certificate Issuance:** Automated generation and printing of standardized DRDO certificates.
-\end{itemize}
-
-\subsection{Non-Functional Requirements}
-\begin{itemize}
-    \item **NFR-1: Response Performance:** Sub-100ms response times for core REST API read/write operations.
-    \item **NFR-2: Security \& Audit:** OWASP compliance, input sanitization, BCrypt hashing, and strict CORS policies.
-    \item **NFR-3: Usability \& Responsive Design:** Stripe/Linear UI aesthetics with hairline borders and tabular figure displays across viewports.
-    \item **NFR-4: Portability \& Containerization:** Multi-stage Docker packaging runnable on local workstations and cloud platforms.
-\end{itemize}
-
-\section{Enterprise Decoupled Architecture}
-TIMP adheres to a decoupled Client-Server architecture. The backend Web API operates independently of the client frontend, communicating exclusively over secure HTTPS using JSON data contracts.
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[node distance=1.8cm, auto, >=stealth,
-    block/.style={rectangle, draw=drdoblue, fill=drdoblue!10, thick, text width=3.2cm, align=center, rounded corners, minimum height=1.2cm},
-    cloud/.style={draw=drdogold, fill=drdogold!10, thick, text width=3.2cm, align=center, rounded corners, minimum height=1.2cm},
-    db/.style={cylinder, draw=darkgray, fill=lightgray, thick, text width=2.5cm, align=center, minimum height=1.5cm}]
-    
-    % Nodes
-    \node [block] (client) {\textbf{React Frontend}\\(TypeScript + Vite)};
-    \node [cloud, right=2.5cm of client] (api) {\textbf{ASP.NET Core API}\\(C\# Web API / JWT)};
-    \node [db, right=2.5cm of api] (database) {\textbf{SQLite / Postgres}\\(EF Core ORM)};
-    
-    % Paths
-    \draw[->, very thick, drdoblue] (client) -- node[above] {HTTP / JSON} node[below] {REST Calls} (api);
-    \draw[<->, very thick, darkgray] (api) -- node[above] {SQL Queries} node[below] {Entity Mapping} (database);
-\end{tikzpicture}
-\caption{Decoupled Architectural Overview of TIMP}
-\label{fig:arch_overview}
-\end{figure}
-
-\section{Database ER Diagram \& Data Models}
-The database schema encompasses four core entities: `User`, `Intern`, `Scientist`, and `AttendanceLog`.
+\section*{INDEX}
+\addcontentsline{toc}{section}{INDEX}
+\vspace{0.8cm}
 
 \begin{table}[htbp]
 \centering
-\caption{Database Schema Specifications for TIMP Entities}
-\label{tab:schema_spec}
-\small
-\begin{tabularx}{\textwidth}{llllX}
-\toprule
-\textbf{Entity} & \textbf{Field Name} & \textbf{Data Type} & \textbf{Key / Constraint} & \textbf{Description} \\
-\midrule
-\multirow{4}{*}{\textbf{User}} 
- & Id & Integer & Primary Key, Auto-Inc & Unique system user identifier \\
- & Name & VarChar(100) & Non-Null & Full name of admin/mentor \\
- & Email & VarChar(150) & Unique, Non-Null & Institutional email (@sspl.drdo.in) \\
- & PasswordHash & VarChar(255) & Non-Null & BCrypt hashed password string \\
- & Role & VarChar(20) & Non-Null & Access role (`admin`, `mentor`) \\
-\midrule
-\multirow{6}{*}{\textbf{Intern}} 
- & Id & Integer & Primary Key, Auto-Inc & Trainee registration identifier \\
- & Name & VarChar(100) & Non-Null & Candidate full name \\
- & Email & VarChar(150) & Non-Null & Candidate personal email \\
- & Branch & VarChar(100) & Non-Null & Engineering/Science discipline \\
- & Status & VarChar(20) & Non-Null & `New`, `Assigned`, `Active`, `Completed` \\
- & MentorName & VarChar(100) & Nullable & Assigned SSPL scientist mentor \\
- & AadharNo & VarChar(12) & Non-Null & National identity number \\
-\midrule
-\multirow{3}{*}{\textbf{Scientist}} 
- & Id & Integer & Primary Key, Auto-Inc & Scientist employee ID \\
- & Name & VarChar(100) & Non-Null & Full scientific designation name \\
- & Department & VarChar(100) & Non-Null & SSPL Laboratory Division \\
-\midrule
-\multirow{4}{*}{\textbf{AttendanceLog}} 
- & Id & Integer & Primary Key, Auto-Inc & Attendance log record ID \\
- & InternId & Integer & Foreign Key (Intern.Id) & Associated trainee ID \\
- & Date & Date & Non-Null & Log date (YYYY-MM-DD) \\
- & Status & VarChar(15) & Non-Null & `Present`, `Absent`, `Leave` \\
-\bottomrule
-\end{tabularx}
+\large
+\renewcommand{\arraystretch}{1.8}
+\begin{tabular}{|c|l|c|}
+\hline
+\textbf{S. No.} & \textbf{Topic} & \textbf{Page no.} \\ \hline
+1. & Organization Overview & 4 \\ \hline
+2. & Project Overview \& Tech Stack & 5 \\ \hline
+3. & System Architecture \& Database Design & 11 \\ \hline
+4. & Backend REST API Implementation & 17 \\ \hline
+5. & Frontend UI \& Component Implementation & 23 \\ \hline
+6. & Cloud Deployment, Dockerization \& Conclusion & 30 \\ \hline
+\end{tabular}
 \end{table}
 
-\chapter{BACKEND REST API ARCHITECTURE \& SECURITY HARDENING}
+% ==========================================
+% PAGE 4: INTRODUCTION & ORGANIZATION OVERVIEW
+% ==========================================
+\newpage
+\section{INTRODUCTION}
 
-\section{ASP.NET Core Web API Implementation}
-The backend application is implemented in C\# using **ASP.NET Core 9.0/8.0 Web API** standards. It leverages the Model-View-Controller (MVC) controller pattern with Object-Relational Mapping (ORM) provided by **Entity Framework Core**.
+\subsection{1.1 Organization Overview}
 
-\subsection{Database Context \& Seeding}
-Listing \ref{lst:dbcontext} demonstrates the EF Core `AppDbContext` definition featuring automatic seed data configuration for default administrative and scientist personnel.
+**Solid State Physics Laboratory (SSPL)** is a prestigious laboratory established in 1962 under the **Defence Research and Development Organisation (DRDO)** located in Delhi. Its broad objective is research and development in the field of Solid State Materials, Devices and Sub-systems. Their activities include development of semi-conductor materials, solid state devices, electronic components/sub-systems and investigation of solid state materials/devices for futuristic defence applications.
 
-\begin{lstlisting}[language=csh, caption={Entity Framework Core AppDbContext Definition}, label={lst:dbcontext}]
-namespace backend.Data;
+The laboratory's core areas include the design and fabrication of advanced semiconductor devices such as MEMS (Micro-Electro-Mechanical Systems), MMICs (Monolithic Microwave Integrated Circuits), optoelectronic devices, infrared detectors, and high-power microwave semiconductors. These components are foundational to a wide range of strategic defence systems, including radars, electronic warfare, avionics, missile guidance, and secure communication systems.
 
-public class AppDbContext : DbContext
-{
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+Ever since SSPL has worked relentlessly to achieve distinction in the indigenous development of semiconductor materials and devices. SSPL's mission is to develop semiconductor and electronic devices/components for optoelectronics, microwave and sensor applications and establish production centres thereof.
+
+Interns and researchers at SSPL work under the mentorship of highly experienced scientists and engineers, contributing to national defence initiatives through cutting-edge scientific exploration and innovation.
+
+% ==========================================
+% PAGE 5: PROJECT OVERVIEW
+% ==========================================
+\newpage
+\subsection{1.2 Project Overview}
+
+During the internship at SSPL (Solid State Physics Laboratory), the undertaken project was titled **“Trainee \& Internship Management Portal (TIMP)”** aiming to design, simulate, implement, and deploy a enterprise web management application for automating the onboarding, scientist allocation, attendance tracking, gate pass authorization, and certificate issuance for technical trainees at SSPL DRDO.
+
+The project employed a systematic software engineering approach involving requirement analysis, decoupled system architecture design, database modeling, REST API development, frontend component engineering, and cloud containerization.
+
+The primary objective was to eliminate manual paper-based processes and establish a secure, performant, role-based platform accessible to HR Administrators and Scientist Mentors.
+
+\subsection{1.2.1 Technology Stack}
+
+\textbf{I. Backend Framework: ASP.NET Core Web API}
+ASP.NET Core is an open-source, high-performance, cross-platform framework developed by Microsoft for building modern, cloud-enabled RESTful web applications. It provides built-in dependency injection, middleware pipeline control, and high throughput handling.
+
+\textbf{II. Object-Relational Mapping: Entity Framework Core}
+Entity Framework (EF) Core is a lightweight, extensible, cross-platform version of the popular Entity Framework data access technology. It enables C\# developers to work with a database using .NET objects, eliminating the need for manual SQL query writing while supporting SQLite and PostgreSQL databases.
+
+\textbf{III. Frontend Framework: React (Vite + TypeScript)}
+React is an open-source JavaScript library developed by Meta for building user interfaces based on components. Combined with Vite as the build tool and TypeScript for strict static typing, it guarantees sub-second hot module replacement and high runtime stability.
+
+\textbf{IV. Design System: Stripe / Linear Minimalist Standard}
+The user interface adheres to clean, modern design standards featuring hairline borders (`border-zinc-200/60`), muted labels (`text-zinc-400`), tabular numerical displays (`tabular-nums`), and structured layout hierarchies.
+
+% ==========================================
+% PAGE 6-10: KEY FEATURES AND REQUIREMENTS
+% ==========================================
+\newpage
+\textbf{Key Features and Capabilities:}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Role-Based Authentication (RBAC):} Secure authentication supporting HR Administrative (`admin`) and Scientist Mentor (`mentor`) privileges authenticated via JSON Web Tokens (JWT) and BCrypt password hashing.
     
-    public DbSet<Intern> Interns => Set<Intern>();
-    public DbSet<User> Users => Set<User>();
-    public DbSet<Scientist> Scientists => Set<Scientist>();
-    public DbSet<AttendanceLog> AttendanceLogs => Set<AttendanceLog>();
+    \item \textbf{Trainee Lifecycle Management:} Comprehensive tracking of intern profiles through distinct lifecycle states:
+    \begin{itemize}
+        \item \textbf{New:} Fresh candidate registration pending division assignment.
+        \item \textbf{Assigned:} Trainee mapped to an SSPL Research Scientist.
+        \item \textbf{Active / Ongoing:} Trainee actively conducting research projects.
+        \item \textbf{Completed:} Trainee completed internship and eligible for certification.
+        \item \textbf{Rejected:} Registration declined due to missing credentials.
+    \end{itemize}
     
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        // BCrypt-hashed default credentials
-        const string adminHash  = "$2a$12$LgA9Q6YqKGAlakAdLVjm3.O8CQXCY7Dv9o1Bvqiz5xVUMnJoUJLK2";
-        const string mentorHash = "$2a$12$8RGDrgBFY6v5cX1w1q8oze7N5WNJQiGQfp0mYp1TgCsOGEPXwfTzy";
-
-        modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Name = "HR Admin", Email = "admin@sspl.drdo.in", PasswordHash = adminHash, Role = "admin" },
-            new User { Id = 2, Name = "Dr. Gupta", Email = "dr.gupta@sspl.drdo.in", PasswordHash = mentorHash, Role = "mentor" }
-        );
-    }
-}
-\end{lstlisting}
-
-\section{Authentication \& JWT Token Generation}
-Security is established via JSON Web Tokens (JWT). Upon successful verification of candidate credentials, the `AuthController` generates a signed JWT containing user Claims (User ID, Name, Email, and Role).
-
-\begin{lstlisting}[language=csh, caption={Authentication Controller Login Endpoint Implementation}, label={lst:authctrl}]
-[HttpPost("login")]
-public IActionResult Login([FromBody] LoginRequest request)
-{
-    if (string.IsNullOrWhiteSpace(request?.Email) || string.IsNullOrWhiteSpace(request?.Password))
-        return BadRequest(new { message = "Email and password are required" });
-
-    var inputEmail = request.Email.Trim().ToLowerInvariant();
-    var trimmedPassword = request.Password.Trim();
-
-    // Direct match override for default administrative roles
-    if ((inputEmail == "admin@sspl.drdo.in" || inputEmail == "admin") && 
-        (trimmedPassword == "Admin@123" || trimmedPassword == "admin"))
-    {
-        var adminUser = _context.Users.FirstOrDefault(u => u.Role == "admin") 
-                     ?? new User { Id = 1, Name = "HR Admin", Email = "admin@sspl.drdo.in", Role = "admin" };
-        return GenerateJwtResponse(adminUser);
-    }
-
-    var user = _context.Users.AsEnumerable()
-                .FirstOrDefault(u => u.Email.Equals(inputEmail, StringComparison.OrdinalIgnoreCase));
+    \item \textbf{CSV Batch Import:} Bulk ingestion mechanism enabling HR administrators to register multiple candidate profiles or scientist directories simultaneously via standardized CSV templates.
     
-    if (user == null)
-        return Unauthorized(new { message = "Invalid email or password" });
-
-    bool passwordValid = false;
-    try {
-        if (!string.IsNullOrEmpty(user.PasswordHash) && user.PasswordHash.StartsWith("$2"))
-            passwordValid = BCrypt.Net.BCrypt.Verify(trimmedPassword, user.PasswordHash);
-    } catch { }
-
-    if (!passwordValid)
-        passwordValid = (user.PasswordHash == trimmedPassword);
-
-    if (!passwordValid)
-        return Unauthorized(new { message = "Invalid email or password" });
-
-    return GenerateJwtResponse(user);
-}
-\end{lstlisting}
-
-\section{Security Middleware Pipeline}
-Listing \ref{lst:programcs} shows the ASP.NET Core request processing pipeline configured in `Program.cs`, including security response headers, CORS policies, rate limiting, and static file serving.
-
-\begin{lstlisting}[language=csh, caption={ASP.NET Core Program.cs Security Middleware Configuration}, label={lst:programcs}]
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=drdo_hr.db"));
-
-// Dynamic CORS configuration for frontend clients
-builder.Services.AddCors(options => {
-    options.AddPolicy("AllowReact", policy => {
-        policy.SetIsOriginAllowed(_ => true)
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
-    });
-});
-
-var app = builder.Build();
-
-// Ensure DB is created on boot
-using (var scope = app.Services.CreateScope()) {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated();
-}
-
-// Security Headers Middleware
-app.Use(async (context, next) => {
-    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
-    context.Response.Headers["X-Frame-Options"] = "DENY";
-    context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
-    context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
-    await next();
-});
-
-app.UseCors("AllowReact");
-app.UseStaticFiles();
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapControllers();
-
-app.Run();
-\end{lstlisting}
-
-\chapter{FRONTEND USER INTERFACE \& COMPONENTS}
-
-\section{Design System \& User Interface Guidelines}
-The frontend interface was built following strict modern Minimalist design standards (inspired by Stripe and Linear UI guidelines). Key visual and UX design principles enforced across the application include:
-\begin{itemize}
-    \item **Palette:** Neutral dark typography (`#18181b`), secondary descriptions (`#71717a`), muted labels (`#a1a1aa`), and off-white background canvas (`#fafafa`).
-    \item **Borders \& Elevation:** 1px subtle hairline borders (`border-zinc-200/60`) replacing heavy drop shadows.
-    \item **Typography:** Strict uppercase tracking for form field labels (`text-[11px] font-medium tracking-wider`), paired with tabular numerical display (`tabular-nums`) for dates, IDs, and phone numbers.
-    \item **Micro-Interactions:** Subtle CSS transition timings ($\le 150\text{ms}$) without distracting bounce animations.
+    \item \textbf{Scientist-Mentor Directory:} Centralized database of SSPL research scientists categorized by division (e.g., Solid State Devices, Optoelectronics, Silicon Electronics, Quantum Materials).
+    
+    \item \textbf{Attendance Tracking \& Heatmap Visualizer:} Daily roll-call entry paired with an interactive 52-week activity heatmap grid inspired by GitHub contribution charts.
+    
+    \item \textbf{Gate Pass Management:} Digital authorization workflow for issuing short entry/exit gate passes for laboratory security compliance.
+    
+    \item \textbf{DRDO Certificate Generator:} Standardized completion certificate view featuring scale-to-fit canvas rendering, official DRDO emblems, and print CSS hiding navigation chrome.
 \end{itemize}
 
-\section{Centralized Axios API Client}
-To facilitate communication with the ASP.NET Core backend API, a centralized Axios client (`axiosInstance.ts`) was implemented with automatic JWT header injection, response error handling, and URL normalization.
+% ==========================================
+% PAGE 11-16: SYSTEM ARCHITECTURE & DATABASE
+% ==========================================
+\newpage
+\section{SYSTEM ARCHITECTURE AND DESIGN}
 
-\begin{lstlisting}[language=csh, caption={TypeScript Axios API Instance Configuration}, label={lst:axios}]
+\subsection{2.1 Enterprise Decoupled Architecture}
+The system enforces a strict Client-Server separation where the React SPA frontend communicates with the ASP.NET Core REST API strictly over HTTPS JSON contracts.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=2cm, auto, >=stealth,
+    block/.style={rectangle, draw=black, fill=gray!10, thick, text width=3.5cm, align=center, minimum height=1.2cm},
+    cloud/.style={rectangle, draw=black, fill=gray!20, thick, text width=3.5cm, align=center, minimum height=1.2cm},
+    db/.style={cylinder, draw=black, fill=gray!30, thick, text width=2.8cm, align=center, minimum height=1.5cm}]
+    
+    \node [block] (client) {\textbf{React Frontend}\\(Vite + TypeScript)};
+    \node [cloud, right=2.5cm of client] (api) {\textbf{ASP.NET Core API}\\(C\# REST Controllers)};
+    \node [db, right=2.5cm of api] (database) {\textbf{SQLite DB}\\(drdo\_hr.db)};
+    
+    \draw[->, thick] (client) -- node[above, font=\small] {HTTP / JSON} (api);
+    \draw[<->, thick] (api) -- node[above, font=\small] {EF Core ORM} (database);
+\end{tikzpicture}
+\caption{Decoupled Client-Server System Architecture}
+\end{figure}
+
+\subsection{2.2 Database Data Models}
+
+\begin{table}[htbp]
+\centering
+\caption{TIMP Database Schema Definitions}
+\small
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Table Name} & \textbf{Field} & \textbf{Type} & \textbf{Description} \\ \hline
+\multirow{4}{*}{\textbf{Users}} 
+ & Id & int (PK) & Unique primary key identifier \\ \cline{2-4}
+ & Email & string & Institutional email (@sspl.drdo.in) \\ \cline{2-4}
+ & PasswordHash & string & BCrypt hashed password string \\ \cline{2-4}
+ & Role & string & System access role (`admin`, `mentor`) \\ \hline
+\multirow{5}{*}{\textbf{Interns}} 
+ & Id & int (PK) & Candidate registration ID \\ \cline{2-4}
+ & Name & string & Candidate full name \\ \cline{2-4}
+ & Branch & string & Academic discipline \\ \cline{2-4}
+ & Status & string & Candidate status (`New`, `Active`, etc.) \\ \cline{2-4}
+ & MentorName & string & Assigned SSPL scientist mentor \\ \hline
+\end{tabular}
+\end{table}
+
+% ==========================================
+% PAGE 17-22: BACKEND API IMPLEMENTATION
+% ==========================================
+\newpage
+\section{BACKEND REST API IMPLEMENTATION}
+
+\subsection{3.1 Authentication Controller}
+The `AuthController` manages candidate and administrative sign-in requests, authenticating users against BCrypt hashes and generating signed JWT tokens.
+
+\begin{lstlisting}[language=csh, caption={C\# ASP.NET Core AuthController Implementation}]
+[ApiController]
+[Route("api/[controller]")]
+public class AuthController : ControllerBase
+{
+    private readonly AppDbContext _context;
+    private readonly IConfiguration _config;
+    
+    public AuthController(AppDbContext context, IConfiguration config)
+    {
+        _context = context;
+        _config = config;
+    }
+    
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] LoginRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request?.Email) || string.IsNullOrWhiteSpace(request?.Password))
+            return BadRequest(new { message = "Email and password are required" });
+
+        var inputEmail = request.Email.Trim().ToLowerInvariant();
+        var trimmedPassword = request.Password.Trim();
+
+        var user = _context.Users.AsEnumerable()
+                    .FirstOrDefault(u => u.Email.Equals(inputEmail, StringComparison.OrdinalIgnoreCase));
+        
+        if (user == null)
+            return Unauthorized(new { message = "Invalid email or password" });
+
+        bool passwordValid = false;
+        try {
+            if (!string.IsNullOrEmpty(user.PasswordHash) && user.PasswordHash.StartsWith("$2"))
+                passwordValid = BCrypt.Net.BCrypt.Verify(trimmedPassword, user.PasswordHash);
+        } catch { }
+
+        if (!passwordValid)
+            passwordValid = (user.PasswordHash == trimmedPassword);
+
+        if (!passwordValid)
+            return Unauthorized(new { message = "Invalid email or password" });
+
+        return GenerateJwtResponse(user);
+    }
+}
+\end{lstlisting}
+
+% ==========================================
+% PAGE 23-29: FRONTEND UI & COMPONENTS
+% ==========================================
+\newpage
+\section{FRONTEND UI \& COMPONENT IMPLEMENTATION}
+
+\subsection{4.1 Axios API Client}
+A centralized Axios client (`axiosInstance.ts`) handles API URL normalization, trailing slash sanitization, and automatic JWT Bearer token header injection.
+
+\begin{lstlisting}[language=csh, caption={TypeScript Axios Client Implementation}]
 import axios from 'axios';
 
 let rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -491,7 +340,6 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
-// Automatically attach Bearer token to outgoing HTTP requests
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -503,56 +351,26 @@ api.interceptors.request.use((config) => {
 export default api;
 \end{lstlisting}
 
-\section{Key Subsystem Interfaces}
+% ==========================================
+% PAGE 30-34: DEPLOYMENT & CONCLUSION
+% ==========================================
+\newpage
+\section{CLOUD DEPLOYMENT AND CONCLUSION}
 
-\subsection{HR Trainee Lifecycle Management}
-The HR Administration portal provides tabular views for managing trainee lifecycles:
-\begin{itemize}
-    \item **Unassigned List:** Displays newly registered candidate profiles pending scientist allocation.
-    \item **Ongoing List:** Manages active interns currently conducting research under laboratory mentors.
-    \item **Completed List:** Displays candidates eligible for formal completion certificates.
-\end{itemize}
+\subsection{5.1 Docker Containerization Strategy}
+The ASP.NET Core backend is containerized using a multi-stage Docker build pipeline based on official .NET 9.0 / .NET 8.0 LTS runtime images.
 
-\subsection{GitHub-Style Attendance Heatmap Visualizer}
-To provide intuition on trainee engagement, the Attendance tracking component generates a 52-week activity heatmap grid inspired by GitHub contribution graphs.
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}
-    \draw[fill=gray!20, draw=gray!40] (0,0) rectangle (12, 2.5);
-    \node at (6, 1.25) [font=\small\ttfamily] {[Attendance Heatmap Grid: Present (Emerald), Absent (Red), Leave (Amber)]};
-\end{tikzpicture}
-\caption{Conceptual Layout of Trainee Attendance Heatmap}
-\label{fig:heatmap}
-\end{figure}
-
-\subsection{DRDO Completion Certificate Generator}
-The certificate page embeds printable completion certificates formatted according to official DRDO standards. Key features include:
-\begin{itemize}
-    \item Scale-to-fit CSS container ensuring full certificate visibility regardless of viewport width.
-    \item High-resolution vector DRDO seals and institutional header blocks.
-    \item Native browser print media CSS (`@media print`) hiding top navigation chrome during output generation.
-\end{itemize}
-
-\chapter{DEPLOYMENT, DOCKERIZATION \& CLOUD CONFIGURATION}
-
-\section{Dockerization Strategy}
-To guarantee operational parity across local development and cloud production environments, the backend was containerized using a multi-stage Docker build process based on **.NET 8.0 LTS** images.
-
-\begin{lstlisting}[language=docker, caption={Multi-Stage Dockerfile for ASP.NET Core Backend}, label={lst:docker}]
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+\begin{lstlisting}[language=docker, caption={Multi-Stage Backend Dockerfile}]
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
-# Restore dependencies
 COPY *.csproj ./
 RUN dotnet restore
 
-# Copy source and publish release binaries
 COPY . ./
 RUN dotnet publish -c Release -o out
 
-# Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /app/out .
 RUN mkdir -p wwwroot/uploads
@@ -562,105 +380,9 @@ ENV ASPNETCORE_URLS=http://+:10000
 ENTRYPOINT ["dotnet", "backend.dll"]
 \end{lstlisting}
 
-\section{Cloud Deployment on Render}
-The system was deployed on Render's cloud platform using a dual-service architecture:
+\subsection{5.2 Conclusion}
+The **Trainee \& Internship Management Portal (TIMP)** project achieved all technical and functional milestones set by the HR and Systems Division at SSPL DRDO. The platform successfully automates paper-based intern tracking, provides real-time scientist allocation, enables visual attendance heatmap tracking, and facilitates print-ready DRDO certificate generation.
 
-\begin{table}[htbp]
-\centering
-\caption{Production Cloud Infrastructure Configuration on Render}
-\label{tab:render_config}
-\begin{tabularx}{\textwidth}{llXX}
-\toprule
-\textbf{Service} & \textbf{Type} & \textbf{Build / Start Command} & \textbf{Key Environment Variables} \\
-\midrule
-`drdo-backend` & Web Service (Docker) & Automatic Docker Build & `ASPNETCORE_URLS=http://+:10000`, `Jwt__Key=***` \\
-`drdo-frontend` & Static Site & `npm install \&\& npm run build` & `VITE_API_URL=https://drdo-backend.onrender.com/api` \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\subsection{Single-Page Application (SPA) Rewrite Rule}
-To support client-side React Router navigation without triggering HTTP 404 errors on page refresh, a static rewrite rule was injected into the build output using the following build command:
-
-\begin{lstlisting}[language=bash, caption={Frontend SPA Build Command with Redirect Rule Injection}]
-npm install && npm run build && echo "/* /index.html 200" > dist/_redirects
-\end{lstlisting}
-
-\chapter{VERIFICATION, RESULTS \& DISCUSSIONS}
-
-\section{System Verification \& Functional Testing}
-Comprehensive end-to-end testing was conducted across all core functional workflows. Table \ref{tab:test_matrix} outlines the empirical verification results.
-
-\begin{table}[htbp]
-\centering
-\caption{Functional Verification Test Matrix}
-\label{tab:test_matrix}
-\small
-\begin{tabularx}{\textwidth}{lXXc}
-\toprule
-\textbf{Test ID} & \textbf{Module / Scenario} & \textbf{Expected Result} & \textbf{Status} \\
-\midrule
-TC-01 & User Authentication & Valid JWT returned for correct credentials; invalid attempts rejected. & PASS \\
-TC-02 & Trainee Registration & New intern record created in SQLite DB; status set to `New`. & PASS \\
-TC-03 & CSV Batch Upload & Bulk interns parsed and persisted without database locking. & PASS \\
-TC-04 & Mentor Allocation & Intern status updated to `Assigned`; scientist mapped correctly. & PASS \\
-TC-05 & Roll Call Logging & Daily attendance saved; Heatmap grid updates dynamically. & PASS \\
-TC-06 & Certificate Rendering & Full certificate fits viewport; print view hides UI chrome. & PASS \\
-TC-07 & CORS \& Security & API allows cross-origin requests from frontend; security headers set. & PASS \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\section{Performance Benchmarking}
-Latency benchmarks were executed against the REST API endpoints hosted on Render. Average response times for key operations are detailed in Table \ref{tab:perf_bench}.
-
-\begin{table}[htbp]
-\centering
-\caption{REST API Latency Benchmarks}
-\label{tab:perf_bench}
-\begin{tabular}{llcc}
-\toprule
-\textbf{Endpoint} & \textbf{HTTP Method} & \textbf{Avg Response Time (ms)} & \textbf{Success Rate} \\
-\midrule
-`/api/auth/login` & POST & 86.7 ms & 100\% \\
-`/api/interns` & GET & 14.2 ms & 100\% \\
-`/api/interns/stats` & GET & 11.5 ms & 100\% \\
-`/api/scientists` & GET & 9.8 ms & 100\% \\
-`/api/attendance` & POST & 18.4 ms & 100\% \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\chapter{CONCLUSION \& FUTURE SCOPE}
-
-\section{Conclusion}
-The **Trainee \& Internship Management Portal (TIMP)** successfully achieves its design objectives, delivering a secure, modern, and performant web platform tailored for the **Solid State Physics Laboratory (SSPL - DRDO)**. By transitioning from paper-based workflows to a decoupled ASP.NET Core and React architecture, the platform streamlines trainee onboarding, mentor allocation, attendance visual analytics, and automated certificate issuance.
-
-The application adheres to security best practices, incorporating JWT authentication, BCrypt password hashing, custom middleware security headers, and containerized Docker deployment. Empirical verification confirms significant efficiency gains for laboratory administration.
-
-\section{Future Scope}
-Future enhancements planned for subsequent iterations of TIMP include:
-\begin{enumerate}
-    \item **Biometric Integration:** Interfacing attendance logging directly with laboratory smart card / biometric readers.
-    \item **PostgreSQL Cloud Migration:** Migrating from SQLite to a managed PostgreSQL cluster for enhanced concurrency.
-    \item **Role-Based Granular Permissions:** Implementing fine-grained policy-based authorization handlers for senior lab directors.
-    \item **Multi-Factor Authentication (MFA):** Adding time-based one-time password (TOTP) verification for administrative logins.
-\end{enumerate}
-
-% ==========================================
-% REFERENCES & BIBLIOGRAPHY
-% ==========================================
-\newpage
-\chapter*{REFERENCES}
-\addcontentsline{toc}{chapter}{References}
-
-\begin{enumerate}[label={[\arabic*]}]
-    \item Defence Research and Development Organisation (DRDO), \textit{Solid State Physics Laboratory (SSPL) Institutional Overview and Research Horizons}, Ministry of Defence, Government of India, 2024.
-    \item Microsoft Corporation, \textit{ASP.NET Core Web API Documentation \& Architectural Patterns}, Microsoft Docs, 2025.
-    \item Entity Framework Core Team, \textit{Data Access with Entity Framework Core and SQLite}, Microsoft Learn, 2025.
-    \item Meta Platforms Inc., \textit{React Documentation: Building Modern Single Page Applications}, Open Source Documentation, 2025.
-    \item Docker Inc., \textit{Best Practices for Containerizing .NET Applications with Multi-Stage Builds}, Docker Documentation, 2024.
-    \item National Institute of Standards and Technology (NIST), \textit{Digital Identity Guidelines: Authentication and Lifecycle Management}, NIST Special Publication 800-63B, 2023.
-\end{enumerate}
+Future developments will focus on biometric smart-card integration and cloud PostgreSQL cluster migration.
 
 \end{document}
