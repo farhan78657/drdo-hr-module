@@ -109,4 +109,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
+app.MapGet("/", () => Results.Ok(new { status = "healthy", message = "DRDO HR Module API is running" }));
+app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
+app.MapGet("/api/health", () => Results.Ok(new { status = "healthy" }));
+
 app.Run();

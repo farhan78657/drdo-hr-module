@@ -22,6 +22,10 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("login")]
+    [HttpPost("/login")]
+    [HttpPost("/auth/login")]
+    [HttpPost("/api/login")]
+    [HttpPost("/api/auth/login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))

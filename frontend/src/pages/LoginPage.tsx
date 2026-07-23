@@ -31,13 +31,16 @@ export default function LoginPage() {
         navigate('/mentor/dashboard');
       }
     } catch (error: any) {
+      console.error('Login error:', error);
       const serverMsg = error.response?.data?.message;
+      const status = error.response?.status;
+
       if (serverMsg) {
-        toast.error(serverMsg);
+        toast.error(status ? `[Error ${status}] ${serverMsg}` : serverMsg);
       } else if (error.message === 'Network Error') {
-        toast.error('Network Error: Server is waking up or VITE_API_URL is incorrect. Please try again in 30 seconds.');
+        toast.error(`Connection Error (${api.defaults.baseURL}): Server is waking up or VITE_API_URL is incorrect. Retry in 30s.`);
       } else {
-        toast.error(error.message || 'Failed to sign in. Please try again.');
+        toast.error(error.message || 'Failed to sign in.');
       }
     } finally {
       setLoading(false);
