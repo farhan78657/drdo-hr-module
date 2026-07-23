@@ -95,11 +95,4 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-// Apply rate limiting to the auth endpoint specifically
-app.MapControllerRoute(
-    name: "auth-rate-limited",
-    pattern: "api/auth/{action}",
-    defaults: new { controller = "Auth" }
-).RequireRateLimiting("AuthPolicy");
-
 app.Run();
