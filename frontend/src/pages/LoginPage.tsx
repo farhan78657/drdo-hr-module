@@ -34,11 +34,12 @@ export default function LoginPage() {
       console.error('Login error:', error);
       const serverMsg = error.response?.data?.message;
       const status = error.response?.status;
+      const hitUrl = error.config?.url ? `${error.config.baseURL || ''}${error.config.url}` : api.defaults.baseURL;
 
       if (serverMsg) {
-        toast.error(status ? `[Error ${status}] ${serverMsg}` : serverMsg);
+        toast.error(`[Error ${status} from ${hitUrl}] ${serverMsg}`);
       } else if (error.message === 'Network Error') {
-        toast.error(`Connection Error (${api.defaults.baseURL}): Server is waking up or VITE_API_URL is incorrect. Retry in 30s.`);
+        toast.error(`Connection Error (${hitUrl}): Server is waking up or VITE_API_URL is incorrect. Retry in 30s.`);
       } else {
         toast.error(error.message || 'Failed to sign in.');
       }
