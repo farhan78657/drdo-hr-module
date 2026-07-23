@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using backend.Data;
+using backend.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +74,19 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
+
+    if (!db.Users.Any())
+    {
+        const string adminHash  = "$2a$12$LgA9Q6YqKGAlakAdLVjm3.O8CQXCY7Dv9o1Bvqiz5xVUMnJoUJLK2";
+        const string mentorHash = "$2a$12$8RGDrgBFY6v5cX1w1q8oze7N5WNJQiGQfp0mYp1TgCsOGEPXwfTzy";
+
+        db.Users.AddRange(
+            new User { Id = 1, Name = "HR Admin",   Email = "admin@sspl.drdo.in",    PasswordHash = adminHash,  Role = "admin" },
+            new User { Id = 2, Name = "Dr. Gupta",  Email = "dr.gupta@sspl.drdo.in", PasswordHash = mentorHash, Role = "mentor" },
+            new User { Id = 3, Name = "Dr. Verma",  Email = "dr.verma@sspl.drdo.in", PasswordHash = mentorHash, Role = "mentor" }
+        );
+        db.SaveChanges();
+    }
 }
 
 // Security headers middleware
