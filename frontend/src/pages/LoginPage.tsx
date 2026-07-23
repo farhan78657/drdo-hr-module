@@ -30,8 +30,15 @@ export default function LoginPage() {
       } else {
         navigate('/mentor/dashboard');
       }
-    } catch {
-      toast.error('Invalid credentials');
+    } catch (error: any) {
+      const serverMsg = error.response?.data?.message;
+      if (serverMsg) {
+        toast.error(serverMsg);
+      } else if (error.message === 'Network Error') {
+        toast.error('Network Error: Server is waking up or VITE_API_URL is incorrect. Please try again in 30 seconds.');
+      } else {
+        toast.error(error.message || 'Failed to sign in. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
